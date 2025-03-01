@@ -5,7 +5,7 @@
 #  > "ggplot2"),
 #  > system_pkgs = NULL,
 #  > git_pkgs = NULL,
-#  > ide = "code",
+#  > ide = "codium",
 #  > project_path = path_default_nix,
 #  > overwrite = TRUE,
 #  > print = TRUE)
@@ -14,7 +14,7 @@
 # Apple Silicon computers.
 # Report any issues to https://github.com/ropensci/rix
 let
- pkgs = import (fetchTarball "https://github.com/rstats-on-nix/nixpkgs/archive/2025-02-28.tar.gz") { config.allowUnfree = true; };
+ pkgs = import (fetchTarball "https://github.com/rstats-on-nix/nixpkgs/archive/2025-02-28.tar.gz") {};
  
   rpkgs = builtins.attrValues {
     inherit (pkgs.rPackages) 
@@ -28,7 +28,7 @@ let
       glibcLocales
       nix
       R
-      vscode-fhs;
+      vscodium-fhs;
   };
   
 in
