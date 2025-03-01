@@ -5,7 +5,7 @@
 #  > "ggplot2"),
 #  > system_pkgs = NULL,
 #  > git_pkgs = NULL,
-#  > ide = "codium",
+#  > ide = "rstudio",
 #  > project_path = path_default_nix,
 #  > overwrite = TRUE,
 #  > print = TRUE)
@@ -19,18 +19,20 @@ let
   rpkgs = builtins.attrValues {
     inherit (pkgs.rPackages) 
       dplyr
-      ggplot2
-      languageserver;
+      ggplot2;
   };
     
   system_packages = builtins.attrValues {
     inherit (pkgs) 
       glibcLocales
       nix
-      R
-      vscodium-fhs;
+      R;
   };
-  
+ 
+  wrapped_pkgs = pkgs.rstudioWrapper.override {
+    packages = [  rpkgs  ];
+  };
+ 
 in
 
 pkgs.mkShell {
@@ -42,6 +44,6 @@ pkgs.mkShell {
    LC_PAPER = "en_US.UTF-8";
    LC_MEASUREMENT = "en_US.UTF-8";
 
-  buildInputs = [  rpkgs  system_packages   ];
+  buildInputs = [  rpkgs  system_packages  wrapped_pkgs ];
   
 }
