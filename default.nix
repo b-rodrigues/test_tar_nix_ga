@@ -19,6 +19,8 @@ let
   rpkgs = builtins.attrValues {
     inherit (pkgs.rPackages) 
       dplyr
+      targets
+      tarchetypes
       ggplot2;
   };
     
